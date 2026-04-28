@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore the Bean & Brew gallery featuring café photos and a video tour.">
+    <title>Bean & Brew – Gallery</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo-area">
+            <img src="images/logo.png" alt="Bean & Brew logo" class="logo">
+            <h1>Bean & Brew</h1>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="book.html">Book a Table</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="gallery-page">
+        <h2 class="gallery-title">Gallery</h2>
+        <section class="gallery-video">
+            <h3>Take a Tour of Bean & Brew!</h3>
+            <video controls>
+                <source src="videos/cafe-footage.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+        </section>
+
+        <section class="gallery-grid" id="gallery-grid">
+            <!-- Images are inserted here by the script -->
+        </section>
+
+        <div class="gallery-pagination">
+            <button class="btn" id="next-btn">Next Images →</button>
+        </div>
+
+    </main>
+    <footer>
+        <div class="footer-column">
+            <h3>Opening Hours</h3>
+            <p>Mon–Fri: 08:00 – 18:00</p>
+            <p>Sat: 09:00 – 17:00</p>
+            <p>Sun: 10:00 – 16:00</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Follow Us</h3>
+            <p>Instagram | Facebook | Twitter</p>
+        </div>
+
+        <div class="footer-column">
+            <p>&copy; 2026 Bean & Brew. All rights reserved.</p>
+        </div>
+    </footer>
+    <div id="image-modal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modal-img">
+    </div>
+    <script>
+        const modal = document.getElementById("image-modal");
+        const modalImg = document.getElementById("modal-img");
+        const closeBtn = document.querySelector(".close");
+
+        document.querySelectorAll(".gallery-item img").forEach(img => {
+            img.addEventListener("click", () => {
+                modal.style.display = "block";
+                modalImg.src = img.src;
+            });
+        });
+
+        closeBtn.onclick = () => {
+            modal.style.display = "none";
+        };
+
+        modal.onclick = (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
+    <script>
+        const galleryImages = [
+            "images/cafe-interior.webp",
+            "images/tea-on-table.jpg",
+            "images/pastry-display.jpg",
+            "images/barista.jpg",
+            "images/pumpkin-spice-latte.jpg",
+            "images/hot-chocolate.jpg",
+            "images/people-sitting-in-cafe.jpg",
+            "images/choc-croissant.webp"
+        ];
+
+        const galleryGrid = document.getElementById("gallery-grid");
+        const nextBtn = document.getElementById("next-btn");
+
+        let startIndex = 0;
+        const imagesPerPage = 4;
+
+        function renderGallery() {
+            galleryGrid.innerHTML = "";
+
+            const endIndex = startIndex + imagesPerPage;
+            const imagesToShow = galleryImages.slice(startIndex, endIndex);
+
+            imagesToShow.forEach(src => {
+                const div = document.createElement("div");
+                div.classList.add("gallery-item");
+
+                const img = document.createElement("img");
+                img.src = src;
+                img.alt = "Gallery image";
+
+                div.appendChild(img);
+                galleryGrid.appendChild(div);
+            });
+
+            attachModalEvents();
+        }
+
+        function nextImages() {
+            galleryGrid.classList.add("fade-out");
+
+            setTimeout(() => {
+                startIndex += imagesPerPage;
+                if (startIndex >= galleryImages.length) startIndex = 0;
+
+                renderGallery();
+                galleryGrid.classList.remove("fade-out");
+            }, 400);
+        }
+
+        function previousImages() {
+            galleryGrid.classList.add("fade-out");
+
+            setTimeout(() => {
+                startIndex -= imagesPerPage;
+                if (startIndex < 0) {
+                    startIndex = galleryImages.length - imagesPerPage;
+                    if (startIndex < 0) startIndex = 0;
+                }
+
+                renderGallery();
+                galleryGrid.classList.remove("fade-out");
+            }, 400);
+        }
+
+
+        nextBtn.addEventListener("click", nextImages);
+
+        function attachModalEvents() {
+            document.querySelectorAll(".gallery-item img").forEach(img => {
+                img.addEventListener("click", () => {
+                    modal.style.display = "block";
+                    modalImg.src = img.src;
+                });
+            });
+        }
+
+        renderGallery();
+    </script>
+    <script>
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        galleryGrid.addEventListener("touchstart", (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        galleryGrid.addEventListener("touchend", (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeDistance = touchEndX - touchStartX;
+
+            if (swipeDistance < -50) {
+                nextImages();
+            }
+
+            if (swipeDistance > 50) {
+                previousImages();
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener("keydown", (e) => {
+
+            if (e.key === "Escape") {
+                modal.style.display = "none";
+            }
+
+            if (e.key === "ArrowRight") {
+                nextImages();
+            }
+
+            if (e.key === "ArrowLeft") {
+                previousImages();
+            }
+        });
+    </script>
+</body>
+</html>

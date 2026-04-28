@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Book a table at Bean & Brew café.">
+    <title>Bean & Brew – Book a Table</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-area">
+            <img src="images/logo.png" alt="Bean & Brew logo" class="logo">
+            <h1>Bean & Brew</h1>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="book.html" class="active">Book a Table</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="booking-page">
+        <div class="page-header">
+            <h2>Book a Table</h2>
+        </div>
+        <div id="booking-container">
+            <form id="booking-form" class="booking-form">
+                <label>
+                    Name:
+                    <input type="text" name="name" required>
+                </label>
+
+                <label>
+                    Email:
+                    <input type="email" name="email" required>
+                </label>
+
+                <label>
+                    Phone:
+                    <input type="tel" name="phone" required>
+                </label>
+
+                <label>
+                    Date:
+                    <input type="date" name="date" required min="">
+                </label>
+
+                <label>
+                    Time:
+                    <select name="time" id="time-select" required>
+                        <option value="">Select a time</option>
+                    </select>
+                </label>
+
+                <label>
+                    Number of Guests:
+                    <input type="number" name="guests" min="1" max="12" required>
+                </label>
+
+                <label>
+                    Additional Notes:
+                    <textarea name="notes" rows="4"></textarea>
+                </label>
+
+                <button type="submit" class="btn">Submit Booking</button>
+            </form>
+            <div id="booking-confirmation" class="booking-confirmation">
+                <h3>Thank you!</h3>
+                <p>Your booking has been received. We’ll contact you shortly.</p>
+            </div>
+
+        </div>
+
+    </main>
+    <footer>
+        <div class="footer-column">
+            <h3>Opening Hours</h3>
+            <p>Mon–Fri: 08:00 – 18:00</p>
+            <p>Sat: 09:00 – 17:00</p>
+            <p>Sun: 10:00 – 16:00</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Follow Us</h3>
+            <p>Instagram | Facebook | Twitter</p>
+        </div>
+
+        <div class="footer-column">
+            <p>&copy; 2026 Bean & Brew. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        const form = document.getElementById("booking-form");
+        const confirmation = document.getElementById("booking-confirmation");
+
+        // Prevent past dates
+        const dateInput = document.querySelector('input[name="date"]');
+        const today = new Date().toISOString().split("T")[0];
+        dateInput.min = today;
+
+        // Time restrictions based on day of week
+        const timeInput = document.querySelector('input[name="time"]');
+
+        dateInput.addEventListener("change", () => {
+            const selectedDate = new Date(dateInput.value);
+            const day = selectedDate.getDay(); // 0 = Sunday, 1 = Monday...
+
+            let open = "08:00";
+            let close = "18:00";
+
+            if (day === 6) {        // Saturday
+                open = "09:00";
+                close = "17:00";
+            } else if (day === 0) { // Sunday
+                open = "10:00";
+                close = "16:00";
+            }
+
+            timeInput.min = open;
+            timeInput.max = close;
+        });
+
+        const timeSelect = document.getElementById("time-select");
+
+        // Generates time options in 15-minute intervals
+        function generateTimes(open, close) {
+            timeSelect.innerHTML = '<option value="">Select a time</option>';
+
+            const [openH, openM] = open.split(":").map(Number);
+            const [closeH, closeM] = close.split(":").map(Number);
+
+            let current = new Date();
+            current.setHours(openH, openM, 0, 0);
+
+            const end = new Date();
+            end.setHours(closeH, closeM, 0, 0);
+
+            while (current <= end) {
+                const hh = String(current.getHours()).padStart(2, "0");
+                const mm = String(current.getMinutes()).padStart(2, "0");
+                const timeString = `${hh}:${mm}`;
+
+                const option = document.createElement("option");
+                option.value = timeString;
+                option.textContent = timeString;
+
+                timeSelect.appendChild(option);
+
+                // Adds 15 minutes
+                current.setMinutes(current.getMinutes() + 15);
+            }
+        }
+
+        // Updates times when date changes
+        dateInput.addEventListener("change", () => {
+            const selectedDate = new Date(dateInput.value);
+            const day = selectedDate.getDay(); // 0 = Sunday
+
+            if (day === 6) {
+                generateTimes("09:00", "17:00"); // Saturday
+            } else if (day === 0) {
+                generateTimes("10:00", "16:00"); // Sunday
+            } else {
+                generateTimes("08:00", "18:00"); // Weekdays
+            }
+        });
+
+
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            // Fades out form
+            form.style.opacity = "0";
+
+            setTimeout(() => {
+                form.style.display = "none";
+
+                // Fades in confirmation
+                confirmation.classList.add("show");
+
+                // After 4 seconds, returns to form
+                setTimeout(() => {
+                    confirmation.classList.remove("show");
+
+                    setTimeout(() => {
+                        confirmation.style.display = "none";
+
+                        // Resets form
+                        form.reset();
+
+                        // Shows form again
+                        form.style.display = "block";
+
+                        // Triggers fade-in
+                        setTimeout(() => {
+                            form.style.opacity = "1";
+                        }, 50);
+
+                    }, 500);
+
+                }, 4000);
+
+            }, 400);
+        });
+    </script>
+
+</body>
+</html>

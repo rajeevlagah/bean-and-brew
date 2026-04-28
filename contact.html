@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Bean & Brew café.">
+    <title>Bean & Brew – Contact Us</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo-area">
+            <img src="images/logo.png" alt="Bean & Brew logo" class="logo">
+            <h1>Bean & Brew</h1>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="book.html">Book a Table</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contact-page">
+        <div class="page-header">
+            <h2>Contact Us</h2>
+            <p>Have a question, comment, or enquiry? Send us a message and we’ll get back to you as soon as possible.</p>
+        </div>
+
+        <div id="contact-container">
+            <form id="contact-form" class="contact-form">
+                <label>
+                    Name:
+                    <input type="text" name="name" required>
+                </label>
+
+                <label>
+                    Email:
+                    <input type="email" name="email" required>
+                </label>
+
+                <label>
+                    Subject:
+                    <input type="text" name="subject" required>
+                </label>
+
+                <label>
+                    Message:
+                    <textarea name="message" rows="5" required></textarea>
+                </label>
+
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+
+            <div id="contact-confirmation" class="contact-confirmation">
+                <h3>Message Sent</h3>
+                <p>Thank you for contacting us. We’ll reply as soon as we can.</p>
+            </div>
+
+        </div>
+        <div class="map-container">
+            <h3>Find Us</h3>
+            <div class="map-placeholder">
+                <p>Map Placeholder</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-column">
+            <h3>Opening Hours</h3>
+            <p>Mon–Fri: 08:00 – 18:00</p>
+            <p>Sat: 09:00 – 17:00</p>
+            <p>Sun: 10:00 – 16:00</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Follow Us</h3>
+            <p>Instagram | Facebook | Twitter</p>
+        </div>
+
+        <div class="footer-column">
+            <p>&copy; 2026 Bean & Brew. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const contactForm = document.getElementById("contact-form");
+        const contactConfirmation = document.getElementById("contact-confirmation");
+
+        contactForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            contactForm.style.opacity = "0";
+
+            setTimeout(() => {
+                contactForm.style.display = "none";
+                contactConfirmation.classList.add("show");
+
+                setTimeout(() => {
+                    contactConfirmation.classList.remove("show");
+
+                    setTimeout(() => {
+                        contactConfirmation.style.display = "none";
+                        contactForm.reset();
+                        contactForm.style.display = "block";
+
+                        setTimeout(() => {
+                            contactForm.style.opacity = "1";
+                        }, 50);
+
+                    }, 500);
+
+                }, 4000);
+
+            }, 400);
+        });
+    </script>
+
+</body>
+</html>
