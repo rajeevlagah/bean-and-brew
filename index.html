@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore the Bean & Brew menu featuring coffee, tea, pastries, and seasonal specials.">
-    <title>Bean & Brew – Menu</title>
+    <meta name="description" content="Welcome to Bean & Brew, your local café for great coffee, fresh pastries, and community events.">
+    <title>Bean & Brew – Home</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
@@ -17,117 +17,61 @@
             <img src="images/logo.png" alt="Bean & Brew logo" class="logo">
             <h1>Bean & Brew</h1>
         </div>
-
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="menu.html">Menu</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="book.html">Book a Table</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
-    <main class="menu-page">
-        <h2 class="menu-title">Menu</h2>
-        <div class="menu-layout">
-            <aside class="menu-sidebar">
-                <h3>Menu</h3>
-                <ul>
-                    <li><a href="#specials">Specials</a></li>
-                    <li><a href="#coffee">Coffee</a></li>
-                    <li><a href="#tea">Tea</a></li>
-                    <li><a href="#pastries">Pastries</a></li>
-                </ul>
-            </aside>
-            <div class="menu-content">
-                <section id="specials" class="menu-section">
-                    <h3>Specials</h3>
-                    <div class="menu-item">
-                        <img src="images/hot-chocolate.jpg" alt="An image of hot chocolate, with whipped cream and cinnamon on top.">
-                        <div>
-                            <h4>Winter Hot Chocolate</h4>
-                            <p>Rich dark chocolate topped with whipped cream and cinnamon.</p>
-                            <p class="price">£3.50</p>
-                        </div>
-                    </div>
-
-                    <div class="menu-item">
-                        <img src="images/pumpkin-spice-latte.jpg" alt="An image of two pumpkin spice lattes.">
-                        <div>
-                            <h4>Pumpkin Spice Latte</h4>
-                            <p>Autumn favourite with warm spices and steamed milk.</p>
-                            <p class="price">£3.80</p>
-                        </div>
-                    </div>
-                </section>
-                <section id="coffee" class="menu-section">
-                    <h3>Coffee</h3>
-
-                    <div class="menu-item">
-                        <img src="images/latte.png" alt="An image of a latte, with steamed milk.">
-                        <div>
-                            <h4>Latte</h4>
-                            <p>Smooth espresso with steamed milk.</p>
-                            <p class="price">£2.90</p>
-                        </div>
-                    </div>
-
-                    <div class="menu-item">
-                        <img src="images/cappucino.jpg" alt="An image of an espresso with foamed milk and topped with chocolate dusting.">
-                        <div>
-                            <h4>Cappuccino</h4>
-                            <p>Espresso with foamed milk and chocolate dusting.</p>
-                            <p class="price">£3.10</p>
-                        </div>
-                    </div>
-                </section>
-                <section id="tea" class="menu-section">
-                    <h3>Tea</h3>
-
-                    <div class="menu-item">
-                        <img src="images/earl-grey-tea.jpg" alt="An image of earl grey tea, black and surrounded by shavings. Steam rises from the cup.">
-                        <div>
-                            <h4>Earl Grey</h4>
-                            <p>Classic black tea with bergamot.</p>
-                            <p class="price">£2.20</p>
-                        </div>
-                    </div>
-
-                    <div class="menu-item">
-                        <img src="images/green-tea.png" alt="An image of green tea in a clear mug.">
-                        <div>
-                            <h4>Green Tea</h4>
-                            <p>Light, refreshing, and full of antioxidants.</p>
-                            <p class="price">£2.30</p>
-                        </div>
-                    </div>
-                </section>
-                <section id="pastries" class="menu-section">
-                    <h3>Pastries</h3>
-
-                    <div class="menu-item">
-                        <img src="images/choc-croissant.webp" alt="An image of chocolate croissants on a sheet tray.">
-                        <div>
-                            <h4>Chocolate Croissant</h4>
-                            <p>Flaky pastry filled with rich chocolate.</p>
-                            <p class="price">£2.50</p>
-                        </div>
-                    </div>
-
-                    <div class="menu-item">
-                        <img src="images/blueberry-muffin.jpg" alt="An image of a blueberry muffin. The dough is white, and the blueberry juice runs down the ridges.">
-                        <div>
-                            <h4>Blueberry Muffin</h4>
-                            <p>Soft muffin packed with fresh blueberries.</p>
-                            <p class="price">£2.40</p>
-                        </div>
-                    </div>
-                </section>
-
+    <main>
+        <section class="hero">
+            <img src="images/cafe-interior.webp" alt="Café interior" class="hero-image">
+            <div class="hero-text">
+                <h2>Welcome to Bean & Brew!</h2>
+                <p>Your cozy local café for coffee, pastries, and community events.</p>
+                <a href="book.html" class="btn">Book a Table</a>
             </div>
-        </div>
+        </section>
+        <section class="features">
+            <div class="feature-box">
+                <img src="images/coffee.png" alt="An icon of a right hand holding a saucer with a coffee cup on it. Steam rises from the cup" class="feature-icon">
+                <h3>Fresh Coffee</h3>
+                <p>Locally roasted beans brewed to perfection.</p>
+            </div>
+
+            <div class="feature-box">
+                <img src="images/wifi.png" alt="An icon of a wifi symbol, a dot with three arcs cascading upwards" class="feature-icon">
+                <h3>Relax & Study</h3>
+                <p>Free Wi‑Fi and a quiet atmosphere for students.</p>
+            </div>
+
+            <div class="feature-box">
+                <img src="images/people.png" alt="An icon of three people-shaped entities" class="feature-icon">
+                <h3>Community Events</h3>
+                <p>Workshops, live music, and more every week.</p>
+            </div>
+        </section>
+        <section class="events">
+            <h2>Upcoming Events</h2>
+            <p>Check out what's happening this month at Bean & Brew!</p>
+            <p>Currently: Nothing is happening!</p>
+        </section>
+        <section class="location">
+            <div class="location-info">
+                <h2>Find Us</h2>
+                <p>123 Fake Street<br>Falseville, Lieshire<br>PA12 L13</p>
+                <p>Open daily for great coffee and good vibes.</p>
+            </div>
+
+            <div class="location-map">
+                <img src="images/map.png" alt="Map showing café location">
+            </div>
+        </section>
     </main>
     <footer>
         <div class="footer-column">
